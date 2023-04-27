@@ -26,6 +26,7 @@ class LLamaCPPLangchainAdapter
                 logitsAll:$config['logits_all'],
                 vocabOnly:$config['vocab_only'],
                 useMlock:$config['use_mlock'],
+                embedding:$config['embedding'] ?? false,
             )
         );
 
@@ -46,6 +47,11 @@ class LLamaCPPLangchainAdapter
                 noOfThreads:$this->numberOfThreads,
             )
         );
+    }
+
+    public function embed(string $text): array
+    {
+        return $this->llamaCPP->embed($text, $this->numberOfThreads);
     }
 
     public static function create(array $config = []): self
